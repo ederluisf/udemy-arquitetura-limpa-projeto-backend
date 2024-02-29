@@ -31,7 +31,7 @@ export default class LoginUsuario implements CasoDeUso<LoginUsuarioEntrada, Logi
     const mesmaSenha = this.provedorCripto.comparar(entrada.senha, usuarioExistente.senha!);
 
     if (!mesmaSenha) {
-      throw new Error(Erros.USUARIO_NAO_EXISTE);
+      throw new Error(Erros.SENHA_INCORRETA);
     }
 
     return {
