@@ -9,4 +9,8 @@ export default class InverterSenhaCripto implements ProvedorCriptografia {
   criptografar(senha: string): string {
     return senha.split('').reverse().join('');
   }
+
+  comparar(senhaRecebida: string, senhaCriptografada: string): boolean {
+      return this.criptografar(senhaRecebida) === senhaCriptografada;
+  }
 }
