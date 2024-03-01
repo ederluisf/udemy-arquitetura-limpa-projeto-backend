@@ -1,27 +1,22 @@
 import CasoDeUso from "@/core/shared/CasoDeUso";
-import Usuario from "../model/Usuario";
-import RepositorioUsuario from "./RepositorioUsuario";
 import Erros from "@/core/shared/Erros";
+import Usuario from "../model/Usuario";
 import ProvedorCriptografia from "./ProvedorCriptografia";
+import RepositorioUsuario from "./RepositorioUsuario";
 
 export type LoginUsuarioEntrada = {
   email: string,
   senha: string
 };
 
-export type LoginUsuarioSaida = {
-  usuario: Usuario,
-  token: string
-};
-
-export default class LoginUsuario implements CasoDeUso<LoginUsuarioEntrada, LoginUsuarioSaida> {
+export default class LoginUsuario implements CasoDeUso<LoginUsuarioEntrada, Usuario> {
   
   constructor(
     private repositorio: RepositorioUsuario,
     private provedorCripto: ProvedorCriptografia
   ) {}
 
-  async executar(entrada: LoginUsuarioEntrada): Promise<LoginUsuarioSaida> {
+  async executar(entrada: LoginUsuarioEntrada): Promise<Usuario> {
     const usuarioExistente = await this.repositorio.buscarPorEmail(entrada.email);
 
     if (!usuarioExistente) {
@@ -35,11 +30,8 @@ export default class LoginUsuario implements CasoDeUso<LoginUsuarioEntrada, Logi
     }
 
     return {
-      usuario: { 
-        ...usuarioExistente,
-        senha: undefined 
-      },
-      token: ''
+      ...usuarioExistente,
+      senha: undefined 
     }
   }
 }
