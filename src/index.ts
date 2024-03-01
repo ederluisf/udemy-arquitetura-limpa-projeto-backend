@@ -8,6 +8,8 @@ import RegistrarUsusario from './core/usuario/service/RegistrarUsuario';
 import RegistrarUsuarioController from './external/api/RegistrarUsuarioController';
 import LoginUsuario from './core/usuario/service/LoginUsuario';
 import LoginUsuarioController from './external/api/LoginUsuarioController';
+import ObterProdutoPorId from './core/produto/service/ObterProdutoPorId';
+import ObterProdutoPorIdController from './external/api/ObterProdutoPorIdController';
 
 const app = express();
 const porta = process.env.API_PORTA ?? 4000;
@@ -29,3 +31,9 @@ const casoUsoLoginUsuario = new LoginUsuario(repositorioUsuario, provedorCripto)
 
 new RegistrarUsuarioController(app, casoUsoRegistrarUsuario);
 new LoginUsuarioController(app, casoUsoLoginUsuario);
+
+
+// ------------------------------------------- Rotas Protegidas
+const casoUsoObterProdutoPorId = new ObterProdutoPorId();
+
+new ObterProdutoPorIdController(app, casoUsoObterProdutoPorId);
