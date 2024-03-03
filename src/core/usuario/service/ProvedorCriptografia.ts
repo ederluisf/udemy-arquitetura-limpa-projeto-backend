@@ -6,6 +6,6 @@
 // No Core, consideramos a camada de entidade e a camadas de Casos de Uso
 
 export default interface ProvedorCriptografia {
-  criptografar(senha: string): string;
+  criptografar(senha?: string): string;
   comparar(senhaRecebida: string, senhaCriptografada: string): boolean;
 }
